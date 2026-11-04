@@ -120,3 +120,9 @@ ul.ticks.incl{margin:24px 0 0;grid-template-columns:repeat(auto-fit,minmax(220px
 @media (min-width:900px){.compare{grid-template-columns:repeat(3,1fr)}}
 .contact a.mail{overflow-wrap:anywhere}
 @media (max-width:680px){.contact a.mail{font-size:1.2rem}}
+@media (max-width:380px){
+  .brand img{height:30px}
+  nav a.btn{padding:8px 12px;font-size:.85rem;margin-left:0}
+  header.site .wrap{gap:10px}
+}
+@media (max-width:900px){nav a:not(.btn){display:none}}
