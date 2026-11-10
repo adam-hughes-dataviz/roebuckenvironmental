@@ -145,3 +145,9 @@ ul.ticks.incl{margin:24px 0 0;grid-template-columns:repeat(auto-fit,minmax(220px
 .contact .alt-contact a.mail{font-size:1.1rem}
 @media (min-width:680px){.quote .fields{grid-template-columns:1fr 1fr}.quote .fields .full{grid-column:1/-1}}
 @media (max-width:680px){.contact .quote{padding:20px}.contact .alt-contact a.mail{font-size:1.05rem}}
+
+.quote .field{display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:.95rem;color:var(--river-deep)}
+.quote .field small{font-weight:400;color:var(--ink-soft);font-size:.85rem}
+.quote .range{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.quote label.sub{font-weight:400;font-size:.88rem;color:var(--ink-soft)}
+@media (max-width:420px){.quote .range{grid-template-columns:1fr;gap:10px}}

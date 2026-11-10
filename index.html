@@ -223,9 +223,14 @@
         <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
         <label>Organisation<input type="text" name="organisation" autocomplete="organization"></label>
         <label class="full"><span class="lbl">Site location <i aria-hidden="true">*</i></span><input type="text" name="site_location" placeholder="Address, postcode, grid reference or what3words" required></label>
-        <label>Approximate length of river<input type="text" name="river_length" placeholder="For example 500 m"></label>
+        <label class="full">Approximate length of river<input type="text" name="river_length" placeholder="For example 500 m"></label>
                 
-        <label>Preferred survey date<input type="text" name="timing" placeholder="Optional"></label>
+        <div class="field full"><span class="lbl">Preferred survey date <small>(optional, pick one date or a range)</small></span>
+          <div class="range">
+            <label class="sub">From<input type="date" name="survey_date_from" id="date-from"></label>
+            <label class="sub">To<input type="date" name="survey_date_to" id="date-to"></label>
+          </div>
+        </div>
         <label class="full">Anything else<textarea name="message" rows="4" placeholder="Access, constraints or anything I should know"></textarea></label>
       </div>
       <button class="btn" type="submit">Send quote request</button>
@@ -246,6 +251,8 @@
 <script>
 (function(){
   var f=document.getElementById('quote-form'),st=document.getElementById('quote-status');
+  var df=document.getElementById('date-from'),dt=document.getElementById('date-to');
+  if(df&&dt){var t=new Date(),m=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');df.min=m;dt.min=m;df.addEventListener('change',function(){dt.min=df.value||m;if(dt.value&&dt.value<dt.min)dt.value=''});}
   if(!f||!window.fetch)return;
   f.addEventListener('submit',function(e){
     e.preventDefault();
