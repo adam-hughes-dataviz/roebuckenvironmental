@@ -126,3 +126,22 @@ ul.ticks.incl{margin:24px 0 0;grid-template-columns:repeat(auto-fit,minmax(220px
   header.site .wrap{gap:10px}
 }
 @media (max-width:900px){nav a:not(.btn){display:none}}
+
+.contact .quote{background:var(--card);color:var(--ink);text-align:left;max-width:760px;margin:28px auto 0;padding:28px;border-radius:6px}
+.quote .fields{display:grid;gap:16px;grid-template-columns:1fr}
+.quote label{display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:.95rem;color:var(--river-deep)}
+.quote label i{color:var(--ochre);font-style:normal}
+.quote input,.quote select,.quote textarea{font:inherit;font-size:1rem;font-weight:400;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:4px;padding:11px 12px;width:100%;min-height:48px}
+.quote textarea{resize:vertical;min-height:110px}
+.quote input:focus,.quote select:focus,.quote textarea:focus{outline:2px solid var(--moss);outline-offset:1px;border-color:var(--moss)}
+.quote .hp{display:none}
+.quote .btn{margin-top:20px;cursor:pointer;font:inherit;font-weight:600}
+.quote .btn:disabled{opacity:.6;cursor:wait}
+.contact .quote .form-note{margin:12px 0 0;max-width:none;font-size:.85rem;color:var(--ink-soft)}
+.contact .quote .form-status{margin:12px 0 0;max-width:none;font-weight:500}
+.form-status.ok{color:var(--river)}
+.form-status.err{color:#8a1f1a}
+.contact .alt-contact{margin-top:28px}
+.contact .alt-contact a.mail{font-size:1.1rem}
+@media (min-width:680px){.quote .fields{grid-template-columns:1fr 1fr}.quote .fields .full{grid-column:1/-1}}
+@media (max-width:680px){.contact .quote{padding:20px}.contact .alt-contact a.mail{font-size:1.05rem}}

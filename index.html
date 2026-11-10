@@ -211,10 +211,48 @@
 <section class="contact" id="contact">
   <div class="wrap">
     <h2>Request a quote</h2>
-    <p>Send the site location, approximate length of river and your intended use of the results. A fixed quote will follow.</p>
-    <p><a class="mail" href="tel:+447473896526">07473 896526</a></p>
-    <p><a class="mail" href="mailto:adam@roebuckenvironmental.co.uk">adam@roebuckenvironmental.co.uk</a></p>
-    <a class="btn" href="mailto:adam@roebuckenvironmental.co.uk?subject=River%20Condition%20Assessment%20enquiry">Email an enquiry</a>
+    <p>Tell me about the site and what the results are for. A fixed quote will follow.</p>
+    <form id="quote-form" class="quote" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+      <input type="hidden" name="subject" value="Quote request from roebuckenvironmental.co.uk">
+      <input type="hidden" name="from_name" value="Roebuck Environmental website">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="fields">
+        <label><span class="lbl">Name <i aria-hidden="true">*</i></span><input type="text" name="name" autocomplete="name" required></label>
+        <label><span class="lbl">Email <i aria-hidden="true">*</i></span><input type="email" name="email" autocomplete="email" required></label>
+        <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
+        <label>Organisation<input type="text" name="organisation" autocomplete="organization"></label>
+        <label class="full"><span class="lbl">Site location <i aria-hidden="true">*</i></span><input type="text" name="site_location" placeholder="Address, postcode, grid reference or what3words" required></label>
+        <label><span class="lbl">Approximate length of river <i aria-hidden="true">*</i></span><input type="text" name="river_length" placeholder="For example 500 m" required></label>
+        <label>Intended use of the results
+          <select name="intended_use">
+            <option value="">Select</option>
+            <option>Biodiversity Net Gain</option>
+            <option>Planning application</option>
+            <option>Restoration project baseline</option>
+            <option>Monitoring after works</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Reports needed
+          <select name="reports_needed">
+            <option value="">Select</option>
+            <option>Pre-intervention</option>
+            <option>Post-intervention</option>
+            <option>Pre-intervention and post-intervention</option>
+            <option>Pre-intervention and intervention scenario</option>
+            <option>All three reports</option>
+            <option>Not sure</option>
+          </select>
+        </label>
+        <label>Preferred survey dates or deadline<input type="text" name="timing" placeholder="Optional"></label>
+        <label class="full">Anything else<textarea name="message" rows="4" placeholder="Access, constraints or anything I should know"></textarea></label>
+      </div>
+      <button class="btn" type="submit">Send quote request</button>
+      <p class="form-note">Your details are used only to reply to this enquiry.</p>
+      <p class="form-status" id="quote-status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="alt-contact">Prefer to talk or email? <a class="mail" href="tel:+447473896526">07473 896526</a> <span aria-hidden="true">&middot;</span> <a class="mail" href="mailto:adam@roebuckenvironmental.co.uk">adam@roebuckenvironmental.co.uk</a></p>
   </div>
 </section>
 </main>
@@ -225,6 +263,25 @@
     <span>&copy; <span id="yr">2026</span> Roebuck Environmental. River Condition Assessments in England.</span>
   </div>
 </footer>
+<script>
+(function(){
+  var f=document.getElementById('quote-form'),st=document.getElementById('quote-status');
+  if(!f||!window.fetch)return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=f.querySelector('button[type=submit]');
+    btn.disabled=true;st.className='form-status';st.textContent='Sending...';
+    fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(d.success){f.reset();st.className='form-status ok';st.textContent='Thank you. Your request has been sent and I will reply by email or phone.';}
+        else{throw new Error('fail')}
+      })
+      .catch(function(){st.className='form-status err';st.innerHTML='Sorry, that did not send. Please email <a href="mailto:adam@roebuckenvironmental.co.uk">adam@roebuckenvironmental.co.uk</a> or call 07473 896526.';})
+      .then(function(){btn.disabled=false});
+  });
+})();
+</script>
 <script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
 </body>
 </html>
